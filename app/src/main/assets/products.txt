@@ -1,0 +1,5 @@
+Mascarilla Económica, 100, https://abstract-documentation.s3-us-west-2.amazonaws.com/ICC4102/1.png
+Mascarilla Quirúrgica, 500, https://abstract-documentation.s3-us-west-2.amazonaws.com/ICC4102/2.png
+Mascarilla Lavable, 2750, https://abstract-documentation.s3-us-west-2.amazonaws.com/ICC4102/3.png
+Mascarrilla Lavable niño/a, 3500, https://abstract-documentation.s3-us-west-2.amazonaws.com/ICC4102/4.png
+Mascarilla KZ320, 7990, https://abstract-documentation.s3-us-west-2.amazonaws.com/ICC4102/5.png
