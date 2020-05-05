@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
@@ -14,13 +15,22 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_purchase_dialog.view.*
 import java.io.File
 
-class MainActivity : AppCompatActivity(), productFragment.OnListFragmentInteractionListener {
+class MainActivity : AppCompatActivity(),
+    OnCartItemFragment.OnListFragmentInteractionListener2,
+    productFragment.OnListFragmentInteractionListener {
     var productList:MutableList<String> = ArrayList()
     var totalItemsOnCart=0
     var totalPriceOnCart=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        shoppingCartImage.setOnClickListener{
+            println("hola")
+            shoppingCartImage.visibility = View.INVISIBLE
+            supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentByTag("productList")!!).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.recyclerViewLayout,OnCartItemFragment.newInstance(this),"onCartFragment").commit()
+        }
         val fullText=assets.open("products.txt").bufferedReader().readLines()
         fullText.forEach{
             productList.add(it)
@@ -99,5 +109,9 @@ class MainActivity : AppCompatActivity(), productFragment.OnListFragmentInteract
         totalItemsOnCart = savedInstanceState.getInt("ITEMS")
         totalPriceOnCart = savedInstanceState.getInt("PRICE")
         updateCart()
+    }
+
+    override fun onListFragmentInteraction2(item: String?) {
+        TODO("Not yet implemented")
     }
 }
