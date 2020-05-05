@@ -43,8 +43,20 @@ class MyproductRecyclerViewAdapter(
         holder.mNameView.text = item.split(",")[0]
         holder.mPriceView.text = "$"+item.split(",")[1]
         Picasso.with(mContext).load(item.split(",")[2].trim())
-            .resize(150,150)
+            .resize(100,100)
             .into(holder.mImageView)
+        holder.mDownArrowDetail.setOnClickListener {
+            if (holder.mDetailView.text==""){
+                holder.mDetailView.text=item.split(",")[3].trim()
+                holder.mDownArrowDetail.setImageResource(R.drawable.ic_keyboard_arrow_up_black_24dp)
+            }
+            else{
+                holder.mDetailView.text=""
+                holder.mDownArrowDetail.setImageResource(R.drawable.downarrow_white_50)
+
+            }
+
+        }
         with(holder.mView) {
             tag = item
             setOnClickListener(mOnClickListener)
@@ -57,6 +69,8 @@ class MyproductRecyclerViewAdapter(
         val mNameView: TextView = mView.itemName
         val mPriceView: TextView = mView.itemPrice
         val mImageView: ImageView = mView.productImageView
+        val mDownArrowDetail: ImageView = mView.detailArrowImage
+        val mDetailView:TextView = mView.productDetailsText
 
         override fun toString(): String {
             return super.toString() + " '" + mNameView.text + "'"
