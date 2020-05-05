@@ -91,6 +91,7 @@ class OnCartItemFragment : Fragment() {
     interface OnListFragmentInteractionListener2 {
         // TODO: Update argument type and name
         fun onListFragmentInteraction2(item: String?)
+        fun reattachOrder()
     }
 
     companion object {

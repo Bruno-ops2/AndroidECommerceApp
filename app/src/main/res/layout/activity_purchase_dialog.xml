@@ -12,7 +12,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/dialogTextView"
         android:layout_width="wrap_content"
         android:textColor="@color/black"
         android:layout_height="wrap_content"

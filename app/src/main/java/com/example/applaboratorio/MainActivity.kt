@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         shoppingCartImage.setOnClickListener{
-            println("hola")
             shoppingCartImage.visibility = View.INVISIBLE
             supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentByTag("productList")!!).commit()
             supportFragmentManager.beginTransaction()
@@ -113,5 +112,17 @@ class MainActivity : AppCompatActivity(),
 
     override fun onListFragmentInteraction2(item: String?) {
         TODO("Not yet implemented")
+    }
+
+    override fun reattachOrder() {
+        println("attachOrder")
+        val actualFragment = supportFragmentManager.findFragmentByTag("onCartFragment")
+        if (actualFragment != null) {
+            supportFragmentManager.beginTransaction().remove(actualFragment).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.recyclerViewLayout,OnCartItemFragment.newInstance(this),"onCartFragment")
+                .commit()
+        }
+        updateCart()
     }
 }

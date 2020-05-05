@@ -11,6 +11,7 @@ import android.widget.TextView
 
 import com.example.applaboratorio.productFragment.OnListFragmentInteractionListener
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_on_cart_item.view.*
 
 import kotlinx.android.synthetic.main.fragment_product.view.*
 import kotlin.concurrent.fixedRateTimer
