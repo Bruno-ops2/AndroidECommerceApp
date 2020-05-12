@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.MaterialComponents"
     android:layout_width="match_parent"
     android:layout_marginHorizontal="20dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="@color/gray"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -14,7 +14,6 @@
     <TextView
         android:id="@+id/dialogTextView"
         android:layout_width="wrap_content"
-        android:textColor="@color/black"
         android:layout_height="wrap_content"
         android:textSize="20dp"
         android:text="Agregar Producto" />

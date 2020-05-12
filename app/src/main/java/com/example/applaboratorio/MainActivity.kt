@@ -1,15 +1,13 @@
 package com.example.applaboratorio
 
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.get
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.badge.BadgeDrawable
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_purchase_dialog.view.*
@@ -21,15 +19,10 @@ class MainActivity : AppCompatActivity(),
     var productList:MutableList<String> = ArrayList()
     var totalItemsOnCart=0
     var totalPriceOnCart=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        shoppingCartImage.setOnClickListener{
-            shoppingCartImage.visibility = View.INVISIBLE
-            supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentByTag("productList")!!).commit()
-            supportFragmentManager.beginTransaction()
-                .add(R.id.recyclerViewLayout,OnCartItemFragment.newInstance(this),"onCartFragment").commit()
-        }
         val fullText=assets.open("products.txt").bufferedReader().readLines()
         fullText.forEach{
             productList.add(it)
@@ -39,8 +32,34 @@ class MainActivity : AppCompatActivity(),
             .beginTransaction()
             .add(R.id.recyclerViewLayout,productFragment.newInstance(productList),"productList")
             .commit()
-    }
 
+        var drawableBadge:BadgeDrawable = BadgeDrawable.create(topAppBar.context)
+        drawableBadge.number=9
+        topAppBar.setNavigationOnClickListener {
+            supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentByTag("onCartFragment")!!).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.recyclerViewLayout,productFragment.newInstance(productList),"productList")
+                .commit()
+            updateCart()
+            topAppBar.setNavigationIcon(null)
+            topAppBar.menu.getItem(0).setVisible(true)
+
+        }
+        topAppBar.setNavigationIcon(null)
+        topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.shoppingCartIcon -> {
+                    supportFragmentManager.beginTransaction().remove(supportFragmentManager.findFragmentByTag("productList")!!).commit()
+                    supportFragmentManager.beginTransaction()
+                        .add(R.id.recyclerViewLayout,OnCartItemFragment.newInstance(this),"onCartFragment").commit()
+                    menuItem.setVisible(false)
+                    topAppBar.setNavigationIcon(resources.getDrawable(R.drawable.ic_menu_white_40dp))
+                    true
+                }
+                else -> false
+            }
+        }
+    }
     override fun onListFragmentInteraction(item: String?) {
         val mDialogView =  LayoutInflater.from(this).inflate(R.layout.activity_purchase_dialog,null)
         val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
@@ -93,8 +112,8 @@ class MainActivity : AppCompatActivity(),
         cartText.forEach{
             totalPriceOnCart+=it.split(",")[1].trim().toInt()
         }
-        itemAmountText.text=totalItemsOnCart.toString()
-        cartTotalText.text = totalPriceOnCart.toString()
+        //itemAmountText.text=totalItemsOnCart.toString()
+        //cartTotalText.text = totalPriceOnCart.toString()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
